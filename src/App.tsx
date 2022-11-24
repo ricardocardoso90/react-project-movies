@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Movie } from './Types';
+import { GridMovies } from './components/GridMovies';
 
 function App() {
 
   const [movies, setMovies] = useState<Movie[]>([]);
 
+  const url = 'https://api.b7web.com.br/cinema/';
   const getMovies = async () => {
-    const response = await axios.get('https://api.b7web.com.br/cinema/');
+    const response = await axios.get(url);
     const json = response.data;
     setMovies(json);
   };
@@ -28,10 +30,7 @@ function App() {
         <div className='grid'>
           {movies.map((item, index) => {
             return (
-              <div key={index} className='grid-movies'>
-                <img src={item.avatar} alt="" width={170} />
-                {/* {item.titulo} */}
-              </div>
+              <GridMovies itemProp={item} key={index} />
             )
           })}
         </div>
